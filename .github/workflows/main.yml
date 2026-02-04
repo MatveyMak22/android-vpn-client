@@ -20,8 +20,14 @@ jobs:
       - name: Install Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Download Gradle 8.0.2
+        run: |
+          wget https://services.gradle.org/distributions/gradle-8.0.2-bin.zip
+          unzip gradle-8.0.2-bin.zip
+          echo "$PWD/gradle-8.0.2/bin" >> $GITHUB_PATH
+
       - name: Build Debug APK
-        run: ./gradlew :app:assembleDebug || gradle :app:assembleDebug
+        run: gradle :app:assembleDebug
 
       - name: Find APK
         run: find app -name "*.apk"
